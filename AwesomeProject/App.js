@@ -16,6 +16,9 @@ import {
 	ScrollView,
 	RefreshControl,
 	FlatList,
+	TextInput,
+	Touchable,
+	TouchableOpacity,
 } from 'react-native';
 
 
@@ -39,59 +42,66 @@ const App = () => {
 	};
 	return (
 		<View style={styles.body}>
-			<FlatList
-				keyExtractor={(item, index) => index.toString()}
-				data={Items}
-				renderItem={({item}) => (
-					<View style={styles.item} key={item.key}>
-						<Text style={styles.text}>{item.value}</Text>
-					</View>
-				)}
-				refreshControl={
-					<RefreshControl
-					refreshing={Refreshing}
-					onRefresh={onRefreshList}
-				/>}
+			<Text style={styles.text}>
+				First Name:
+			</Text>
+			<TextInput style={styles.input}
+			placeholder="กรอกชื่อของคุณ..."
 			/>
-			{/* <ScrollView
-			refreshControl={
-				<RefreshControl
-				refreshing={Refreshing}
-				onRefresh={onRefreshList}
-			/>
-			}
-			>
-			{
-				Items.map((item) => {
-					return (
-						<View key={item.key} style={styles.item}>
-							<Text style={styles.text}>{item.value}</Text>
-						</View>
-					);
-				})
-			}
-			</ScrollView> */}
+			<Text style={styles.text}>
+				Last Name:
+			</Text>
+			<TextInput style={styles.input}
+			placeholder="กรอกนามสกุลของคุณ..."/>
+			<View style={styles.center}>
+				<TouchableOpacity style={styles.button}>
+					<Text style={styles.text}>
+						Submit
+					</Text>
+				</TouchableOpacity>
+			</View>
 		</View>
+
 	);
 };
 
 const styles = StyleSheet.create({
 	body: {
 		flex: 1,
-		flexDirection: 'column',
 		backgroundColor: '#ffffff',
-	},
-	item: {
-		backgroundColor: '#4ae1fa',
-		justifyContent: 'center',
-		alignItems: 'center',
-		margin: 10,
 	},
 	text: {
 		color: '#000000',
-		fontSize: 35,
-		margin: 10,
+		fontSize: 20,
+		marginHorizontal: 10,
+		marginVertical: 4,
 		fontFamily: 'IBMPlexSansThai-Regular',
+	},
+	input: {
+		borderWidth: 2,
+		borderBottomWidth: 4,
+		borderRightWidth: 3,
+		borderRadius: 12,
+		marginHorizontal: 10,
+		marginVertical: 5,
+		borderColor: '#5683FF',
+		fontSize: 20,
+		fontFamily: 'IBMPlexSansThai-Regular',
+		paddingHorizontal: 15,
+	},
+	button: {
+		marginHorizontal: 10,
+		marginTop: 8,
+		fontSize: 20,
+		fontFamily: 'IBMPlexSansThai-Regular',
+		alignItems: 'center',
+		backgroundColor: '#fff',
+		width: 100,
+		borderRadius: 12,
+		borderWidth: 2,
+	},
+	center: {
+		alignItems: 'flex-end',
 	},
 });
 
