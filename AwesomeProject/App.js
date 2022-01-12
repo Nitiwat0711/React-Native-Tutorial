@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 /**
  * Sample React Native App
@@ -6,71 +7,56 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-reanimated';
+import { MotiView } from 'moti';
 import React, {useState} from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
-	Button,
-	ScrollView,
-	RefreshControl,
-	FlatList,
 } from 'react-native';
 
+const LoadingIndicator = ({size})=> {
+		return (
+		<MotiView
+			from={{
+				width: size,
+				height: size,
+				borderRadius: size / 2,
+				borderWidth: 0,
+				shadowOpacity: 0.5,
+			}}
+			animate={{
+				width: size + 20,
+				height: size + 20,
+				borderRadius: (size + 20) / 2,
+				borderWidth: size / 10,
+				shadowOpacity: 1,
+			}}
+			transition={{
+				type: 'timing',
+				duration: 1000,
+				loop: true,
+			}}
+			style={{
+				width: size,
+				height: size,
+				borderRadius: size / 2,
+				borderWidth: size / 10,
+				borderColor: '#fff',
+				shadowColor: '#fff',
+				shadowOffset: { width: 0, height: 0 },
+				shadowOpacity: 1,
+				shadowRadius: 10,
+			}}
+		/>
+	);
+};
 
 const App = () => {
-	const [Items, setItems] = useState([
-		{value: 'Item 1'},
-		{value: 'Item 2'},
-		{value: 'Item 3'},
-		{value: 'Item 4'},
-		{value: 'Item 5'},
-		{value: 'Item 6'},
-		{value: 'Item 7'},
-		{value: 'Item 8'},
-	]);
-	const [Refreshing, setRefreshing] = useState(false);
-
-	const onRefreshList = () => {
-		setRefreshing(true);
-		setItems([...Items, {value:'Item 69 (ADD)'}]);
-		setRefreshing(false);
-	};
 	return (
 		<View style={styles.body}>
-			<FlatList
-				keyExtractor={(item, index) => index.toString()}
-				data={Items}
-				renderItem={({item}) => (
-					<View style={styles.item} key={item.key}>
-						<Text style={styles.text}>{item.value}</Text>
-					</View>
-				)}
-				refreshControl={
-					<RefreshControl
-					refreshing={Refreshing}
-					onRefresh={onRefreshList}
-				/>}
-			/>
-			{/* <ScrollView
-			refreshControl={
-				<RefreshControl
-				refreshing={Refreshing}
-				onRefresh={onRefreshList}
-			/>
-			}
-			>
-			{
-				Items.map((item) => {
-					return (
-						<View key={item.key} style={styles.item}>
-							<Text style={styles.text}>{item.value}</Text>
-						</View>
-					);
-				})
-			}
-			</ScrollView> */}
+			<LoadingIndicator size={100} />
 		</View>
 	);
 };
@@ -78,20 +64,12 @@ const App = () => {
 const styles = StyleSheet.create({
 	body: {
 		flex: 1,
-		flexDirection: 'column',
-		backgroundColor: '#ffffff',
-	},
-	item: {
-		backgroundColor: '#4ae1fa',
-		justifyContent: 'center',
+		backgroundColor: '#010100',
 		alignItems: 'center',
-		margin: 10,
+		justifyContent: 'center',
 	},
 	text: {
-		color: '#000000',
-		fontSize: 35,
-		margin: 10,
-		fontFamily: 'IBMPlexSansThai-Regular',
+		color: '#ffffff',
 	},
 });
 
